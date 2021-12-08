@@ -1,6 +1,8 @@
+"""users table"""
 from app import db
 
-class User(db.Model):
+class User(db.Model): # pylint: disable=too-few-public-methods
+    """users table"""
     __tablename__='users'
 
     id = db.Column(db.Integer(), primary_key=True)
@@ -8,6 +10,6 @@ class User(db.Model):
     nickname = db.Column(db.String(20))
     password = db.Column(db.String(255))
     img_url = db.Column(db.String(255))
-    
+
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
