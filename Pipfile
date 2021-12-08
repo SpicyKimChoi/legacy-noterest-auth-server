@@ -12,6 +12,7 @@ flask-migrate = "*"
 flask-cors = "*"
 gunicorn = "*"
 psycopg2 = "*"
+pylint = "*"
 
 [dev-packages]
 

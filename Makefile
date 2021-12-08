@@ -50,9 +50,10 @@ add: start install-package-in-container build
 deps:
 	docker-compose -p ${project} exec ${service} pip install -r requirements.txt
 
-# .PHONY: lint
-# lint:
-# 	docker-compose -p ${project} exec ${service} pylint service.py src/*.py tests/**/*.py
+.PHONY: lint
+lint:
+	# docker-compose -p ${project} exec ${service} pylint app.py src/*.py tests/**/*.py
+	pylint app.py src/ --disable=E1101
 
 # .PHONY: test
 # test: start test-run-only
