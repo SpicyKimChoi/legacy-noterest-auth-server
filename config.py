@@ -1,4 +1,4 @@
-class Config(object):
+class Config:
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -6,7 +6,7 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = ''
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:password@localhost/noterest'
 
 
 class ProductionConfig(Config):

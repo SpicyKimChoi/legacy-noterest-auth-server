@@ -1,0 +1,17 @@
+version: "3.3"
+
+services:
+  ms-auth:
+    container_name: ms-auth
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ms-auth.rule=PathPrefix(`/auth`)"
+    build:
+      context: .
+    restart: always
+    volumes:
+      - ./:/app
+    ports:
+      - 5000:5000
+    environment:
+      FLASK_ENV: production

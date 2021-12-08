@@ -15,22 +15,23 @@ def create_app(config=None):
     """
     flask 실행 구문, restx, migration 연결
     """
-    flask_app = Flask(__name__)
-    CORS(flask_app)
+    # pylint: disable=invalid-name
+    app = Flask(__name__)
+    CORS(app)
 
-    if flask_app.config["ENV"] == 'production':
-        flask_app.config.from_object('config.ProductionConfig')
+    if app.config["ENV"] == 'production':
+        app.config.from_object('config.ProductionConfig')
     else:
-        flask_app.config.from_object('config.DevelopmentConfig')
+        app.config.from_object('config.DevelopmentConfig')
 
     if config is not None:
-        flask_app.config.update(config)
+        app.config.update(config)
 
-    db.init_app(flask_app)
-    migrate.init_app(flask_app, db)
+    db.init_app(app)
+    migrate.init_app(app, db)
 
     api = Api(
-        app=flask_app,
+        app=app,
         version='0.1',
         title="User Authentication Service",
         description="유저의 인증(로그인, 회원가입)을 진행하는 서버입니다.",
@@ -42,9 +43,10 @@ def create_app(config=None):
     from src.controllers.auth import api as auth_ns
     api.add_namespace(auth_ns, '/auth')
 
-    return flask_app
+    return app
 
 
-if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=True, host='0.0.0.0')
+# if __name__ == "__main__":
+#     app = create_app()
+#     app.run(host='0.0.0.0')
+app = create_app()

@@ -7,12 +7,22 @@ project:=noterest
 start:
 	docker-compose -p ${project} up -d
 
+.PHONY: devstart
+devstart:
+	docker-compose -f docker-compose.dev.yml -p ${project} up -d
+
 .PHONY: stop
 stop:
 	docker-compose -p ${project} down
 
 .PHONY: restart
 restart: stop start
+
+.PHONY: prod
+prod: stop build start migrate upgrade
+
+.PHONY: dev
+dev: stop build devstart migrate upgrade
 
 .PHONY: ps
 ps:
@@ -35,13 +45,19 @@ shell:
 build:
 	docker-compose -p ${project} build --no-cache
 
-.PHONY: clean
-clean: stop build start
 
 .PHONY: install-package-in-container
 install-package-in-container:
 	docker-compose -p ${project} exec ${service} pip install ${package}
 	docker-compose -p ${project} exec ${service} pip freeze > requirements.txt
+
+.PHONY: migrate
+migrate:
+	docker-compose -p ${project} exec ${service} flask db migrate 
+
+.PHONY: upgrade
+upgrade:
+	docker-compose -p ${project} exec ${service} flask db upgrade 
 
 .PHONY: add
 add: start install-package-in-container build

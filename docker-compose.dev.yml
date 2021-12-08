@@ -5,14 +5,13 @@ services:
     container_name: ms-auth
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.ms-reservations.rule=PathPrefix(`/reservations`)"
+      - "traefik.http.routers.ms-auth.rule=PathPrefix(`/auth`)"
     build:
       context: .
     restart: always
     volumes:
       - ./:/app
     ports:
-      - 7701:5000
+      - 5000:5000
     environment:
       FLASK_ENV: development
-      SQLALCHEMY_DATABASE_URI: 
