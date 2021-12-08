@@ -19,10 +19,10 @@ stop:
 restart: stop start
 
 .PHONY: prod
-prod: stop build start migrate upgrade
+prod: start migrate upgrade
 
 .PHONY: dev
-dev: stop build devstart migrate upgrade
+dev: devstart migrate upgrade
 
 .PHONY: ps
 ps:
