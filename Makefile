@@ -19,10 +19,10 @@ stop:
 restart: stop start
 
 .PHONY: prod
-prod: start migrate upgrade
+prod: start stamp migrate upgrade
 
 .PHONY: dev
-dev: devstart migrate upgrade
+dev: devstart stamp migrate upgrade
 
 .PHONY: ps
 ps:
@@ -50,6 +50,10 @@ build:
 install-package-in-container:
 	docker-compose -p ${project} exec ${service} pip install ${package}
 	docker-compose -p ${project} exec ${service} pip freeze > requirements.txt
+
+.PHONY: stamp
+stamp:
+	docker-compose -p ${project} exec ${service} flask db stamp head
 
 .PHONY: migrate
 migrate:

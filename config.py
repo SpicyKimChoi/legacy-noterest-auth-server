@@ -6,7 +6,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:password@localhost/noterest'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:password@devlog-postgresql/noterest'
 
 
 class ProductionConfig(Config):
