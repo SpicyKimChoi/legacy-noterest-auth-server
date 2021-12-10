@@ -2,11 +2,12 @@
 user-auth
 """
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+import uuid
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -43,10 +44,28 @@ def create_app(config=None):
     from src.controllers.auth import api as auth_ns
     api.add_namespace(auth_ns, '/auth')
 
+    @app.route('/ping', methods=['GET'])
+    def ping():
+        """ Liveness probe """
+        resp = {
+            "status" : "pass"
+        }
+        return jsonify(resp)
+
+
+    @app.route('/health', methods=['GET'])
+    def health():
+        """ readiness probe """
+        resp = {
+            "status" : "pass"
+        }
+        return jsonify(resp)
+
     return app
 
 
 # if __name__ == "__main__":
 #     app = create_app()
 #     app.run(host='0.0.0.0')
+uuid.uuid1()
 app = create_app()
