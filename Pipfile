@@ -11,9 +11,9 @@ pyjwt = "*"
 flask-migrate = "*"
 flask-cors = "*"
 gunicorn = "*"
-psycopg2 = "*"
 pylint = "*"
 boto3 = "*"
+pymysql = "*"
 
 [dev-packages]
 

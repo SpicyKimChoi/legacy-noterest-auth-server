@@ -1,3 +1,5 @@
+import os
+
 class Config:
     DEBUG = False
     TESTING = False
@@ -6,8 +8,8 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:password@devlog-postgresql/noterest'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:password@noterest-devdb/noterest'
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = ''
+    SQLALCHEMY_DATABASE_URI = os.environ['SQLALCHEMY_DATABASE_URI']
