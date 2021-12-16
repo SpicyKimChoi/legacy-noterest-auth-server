@@ -5,7 +5,7 @@ services:
     container_name: ms-auth
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.ms-auth.rule=PathPrefix(`/auth`)"
+      - "traefik.http.routers.ms-auth.rule=PathPrefix(`/auth/{[a-z]+}`)"
     build:
       context: .
     restart: always
